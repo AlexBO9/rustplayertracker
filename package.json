@@ -1,0 +1,11 @@
+{
+  "name": "RustPlayerTracker",
+  "version": "1.0.0",
+  "description": "Discord bot for listing players in a rust server",
+  "main": "bot.js",
+  "author": "AlexBO9",
+  "dependencies": {
+    "dgram": "^1.0.1",
+    "discord.js": "^11.5.1"
+  }
+}

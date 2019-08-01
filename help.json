@@ -1,0 +1,4 @@
+{
+  "!help": "Muestra este texto de ayuda!",
+  "!servidor": "Elige un servidor de Rust al que conectarte (necesario)"
+}
