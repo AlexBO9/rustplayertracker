@@ -6,7 +6,21 @@ class Player{
     }
 
     toString(){
-        return `Nombre: ${this.name} | TiempoEnServidor: ${this.duration}`;
+        return `Nombre: ${this.name} | TiempoEnServidor: ${this.segToHms(this.duration)}`;
+    }
+
+    segToHms(segs) {
+        var minutes = 0;
+        var hours = 0;
+        if (segs >= 60) {
+            minutes = Math.floor(segs / 60);
+            segs %= 60;
+        }
+        if (minutes >= 60) {
+            hours = Math.floor(minutes / 60);
+            minutes %= 60;
+        }
+        return hours + "h " + minutes + "m " + Math.round(segs) + "s";
     }
 }
 module.exports = Player;

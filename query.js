@@ -92,8 +92,10 @@ class Query {
 
 function toHexString(bytes) {
     return bytes.map(function (byte) {
-        return (byte & 0xFF).toString(16)
+        return (byte & 0xFF).toString(16);
     }).join('')
 }
+
+
 
 module.exports = Query;

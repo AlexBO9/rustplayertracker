@@ -66,6 +66,7 @@ function sendMessage(_title, _color, _desc, _channel) {
     _channel.send(embed);
 }
 
+
 module.exports.sendMsg = function(_title, _color, _desc, _channel){
     sendMessage(_title, _color, _desc, _channel);
 };
