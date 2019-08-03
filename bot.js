@@ -61,7 +61,10 @@ function sendMessage(_title, _color, _desc, _channel) {
         .setDescription(_desc);
     // Send the embed to the same channel as the message
     if (_channel == null){
-        _channel = client.channels.find('name','general');
+        _channel = client.channels.find('name','bot');
+        if (_channel == null){
+            _channel = client.channels.find('name','general');
+        }
     }
     _channel.send(embed);
 }
