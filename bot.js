@@ -6,16 +6,18 @@ const client = new Discord.Client();
 const fs = require('fs');
 const botActivities = ['Raideando bases de madera', 'Buscando minihelicopteros', 'Perdiendo equipo'];
 const DEFAULT_PORT = '28015';
+let mainChannel = null;
 let query = null;
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     let rand = Math.round(Math.random() * (botActivities.length - 1));
-    client.user.setActivity(botActivities[rand]).then(r => console.log("Estado cambiado:"+r));
+    client.user.setActivity(botActivities[rand]).then(r => console.log("Estado cambiado:"+r)).catch(error => console.log(error));
 });
 
 client.on('message', msg => {
     if (msg.content.substr(0, 1) === '!') {
+        if (mainChannel === null) mainChannel = msg.channel;
         let command = msg.content.substr(1).split(" ")[0];
         let args = msg.content.trim().replace(/\s+/g, ' ').split(" ");
         console.log(msg.member.user.tag + ": " + args.toString());
@@ -123,7 +125,7 @@ function sendMessage(_title, _color, _desc, _channel) {
             _channel = client.channels.find(channel => channel.name === 'general');
         }
     }
-    _channel.send(embed);
+   mainChannel.send(embed);
 }
 
 function saveQueryIntoJson(_query) {
@@ -165,4 +167,4 @@ module.exports.sendMsg = function (_title, _color, _desc, _channel) {
     sendMessage(_title, _color, _desc, _channel);
 };
 
-client.login(auth.token).then(r => console.log("Logged correctly:"+r));
+client.login(auth.token).then(r => console.log("Logged correctly:"+r)).catch(error => console.log(error));
