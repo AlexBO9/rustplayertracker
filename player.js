@@ -1,13 +1,18 @@
-
-class Player{
-    constructor(_name,_duration,_score){
+class Player {
+    constructor(_name, _duration, _score) {
         this.name = _name;
         this.duration = _duration;
         this.score = _score;
     }
 
-    toString(){
-        return `Nombre: "${this.name}" | TiempoEnServidor: "${this.segToHms(this.duration)}"`;
+    toString(_namepadding) {
+        let resultS = "Nombre: ";
+        _namepadding = _namepadding - this.name.length;
+        resultS += `"${this.name}"`;
+        for (let i = 0; i < _namepadding; i++) {
+            resultS += " ";
+        }
+        return resultS + `| t: "${this.segToHms(this.duration)}"`;
     }
 
     segToHms(segs) {
@@ -24,4 +29,5 @@ class Player{
         return hours + "h " + minutes + "m " + Math.round(segs) + "s";
     }
 }
+
 module.exports = Player;
