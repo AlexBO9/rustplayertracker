@@ -1,18 +1,29 @@
 class Player {
-    constructor(_name, _duration, _score) {
+    constructor(_name, _duration, _totalDuration) {
         this.name = _name;
         this.duration = _duration;
-        this.score = _score;
+        this.totalDuration = _totalDuration;
     }
 
-    toString(_namepadding) {
+    toJSON(){
+        return {
+            'name': this.name,
+            'totalDuration': this.totalDuration
+            };
+    }
+
+    toString(_namepadding, _showDuration) {
         let resultS = "Nombre: ";
         _namepadding = _namepadding - this.name.length;
         resultS += `"${this.name}"`;
         for (let i = 0; i < _namepadding; i++) {
             resultS += " ";
         }
-        return resultS + `| t: "${this.segToHms(this.duration)}"`;
+        if (_showDuration){
+            return resultS + `| t: "${this.segToHms(this.duration)}" | T: "${this.segToHms(this.totalDuration)}"`;
+        }else{
+            return resultS + `| T: "${this.segToHms(this.totalDuration)}"`;
+        }
     }
 
     segToHms(segs) {

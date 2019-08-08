@@ -1,4 +1,7 @@
 {
   "!help": "Muestra este texto de ayuda!",
-  "!servidor": "Elige un servidor de Rust al que conectarte (necesario)"
+  "!servidor": "Elige un servidor de Rust al que conectarte (necesario)",
+  "!list": "Muestra los nombres, tiempo de sesion y tiempo total de los jugadores en el servidor actualmente",
+  "!listP": "Muestra los nombres, tiempo de sesion y tiempo total de los jugadores que han entrado al menos una vez en el servidor",
+  "!save": "Guarda el estado del servidor actual (Jugadores,tiempo,tiempoTotalJugado en el servidor)"
 }
