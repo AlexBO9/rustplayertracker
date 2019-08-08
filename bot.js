@@ -11,7 +11,7 @@ let query = null;
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     let rand = Math.round(Math.random() * (botActivities.length - 1));
-    client.user.setActivity(botActivities[rand]);
+    client.user.setActivity(botActivities[rand]).then(r => console.log("Estado cambiado:"+r));
 });
 
 client.on('message', msg => {
@@ -29,12 +29,12 @@ client.on('message', msg => {
                         let serverJson;
                         try {
                             serverJson = require('./servers/'+args[1]+'_'+args[2]+'.json');
-                            console.log('Archivos del servidor encontrados, copiando base de datos...')
+                            console.log('Archivos del servidor encontrados, copiando base de datos...');
                             sendMessage('Ayuda', 0x0000FF, "Archivos del servidor encontrados, copiando base de datos...", msg.channel);
                         }
                         catch (e) {
                             serverJson = null;
-                            console.log('Archivos del servidor no encontrados, creando nuevos...')
+                            console.log('Archivos del servidor no encontrados, creando nuevos...');
                             sendMessage('Ayuda', 0xFF4444, "Archivos del servidor no encontrados, creando nuevos...", msg.channel);
                         }
                         query = new Query(serverJson,args[1], args[2]);
@@ -42,12 +42,12 @@ client.on('message', msg => {
                         let serverJson;
                         try {
                             serverJson = require('./servers/'+args[1]+'_'+DEFAULT_PORT+'.json');
-                            console.log('Archivos del servidor encontrados, copiando base de datos...')
+                            console.log('Archivos del servidor encontrados, copiando base de datos...');
                             sendMessage('Ayuda', 0x0000FF, "Archivos del servidor encontrados, copiando base de datos...", msg.channel);
                         }
                         catch (e) {
                             serverJson = null;
-                            console.log('Archivos del servidor no encontrados, creando nuevos...')
+                            console.log('Archivos del servidor no encontrados, creando nuevos...');
                             sendMessage('Ayuda', 0xFF4444, "Archivos del servidor no encontrados, creando nuevos...", msg.channel);
                         }
                         query = new Query(serverJson,args[1], DEFAULT_PORT);
@@ -95,8 +95,8 @@ client.on('message', msg => {
                 }
                 break;
             case 'help':
-                var desc = '';
-                for (i in help) {
+                let desc = '';
+                for (let i in help) {
                     desc += '**' + i + '**: ' + help[i] + "\n";
                 }
                 sendMessage('Ayuda', 0xFF4444, desc, msg.channel);
@@ -109,7 +109,7 @@ client.on('message', msg => {
 });
 
 function sendMessage(_title, _color, _desc, _channel) {
-    var embed = new Discord.RichEmbed()
+    let embed = new Discord.RichEmbed()
     // Set the title of the field
         .setTitle(_title)
         // Set the color of the embed
@@ -165,4 +165,4 @@ module.exports.sendMsg = function (_title, _color, _desc, _channel) {
     sendMessage(_title, _color, _desc, _channel);
 };
 
-client.login(auth.token);
+client.login(auth.token).then(r => console.log("Logged correctly:"+r));
