@@ -1,4 +1,5 @@
 const dgram = require('dgram');
+const stringTable = require('string-table');
 const {StringDecoder} = require('string_decoder');
 const decoder = new StringDecoder('utf8');
 const Player = require('./player.js');
@@ -17,7 +18,7 @@ class Query {
         this.challengeNum = PAYLOAD_REQUEST_CHALLENGE;
         this.lastMsg = "";
 
-        this.queryPlayers()
+        this.queryPlayers();
 
         this.lastUpdPlayers = [];
 
@@ -27,7 +28,11 @@ class Query {
         });
 
         this.conn.on('message', (msg, rinfo) => {
-            console.log(`Recibido: ${msg.length} from ${rinfo.address}:${rinfo.port}`);
+            if (msg.length <= 9){
+                console.log(`Recibido: ${toHexString(msg.content)} from ${rinfo.address}:${rinfo.port}`);
+            }else{
+                console.log(`Recibido: ${msg.length} from ${rinfo.address}:${rinfo.port}`);
+            }
             this.lastMsg = msg;
             if (Buffer.isBuffer(this.lastMsg) && this.lastMsg.readUInt8(4) === HEADER_PLAYERS_CHALLENGE_RESPONSE) {
                 this.challengeNum = this.lastMsg.readInt32LE(5);
@@ -58,18 +63,19 @@ class Query {
                     players.push(new Player(playerName, duration, score));
                 }
                 this.lastUpdPlayers = players;
-                let playersInfo = "";
+                let playersInfo = "```json\n";
                 let playersJoining = playerNum-players.length;
                 //+playerNum-players.length+")"
                 bot.sendMsg('Info Numero Jugadores',0xFF00FF,players.length+"(Entrando: "+playersJoining+")",null);
                 for (let player of players) {
                     if (playersInfo.length+player.toString().length >= 2048){
                         bot.sendMsg('Info Jugadores',0xFF4444,playersInfo,null);
-                        playersInfo="";
+                        playersInfo="```json\n";
                     }else {
                         playersInfo += `${player.toString()}\n`;
                     }
                 }
+                playersInfo += '\n```';
                 bot.sendMsg('Info Jugadores',0xFF4444,playersInfo,null);
             }
         });

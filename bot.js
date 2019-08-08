@@ -17,7 +17,7 @@ client.on('message', msg => {
     if (msg.content.substr(0, 1) === '!') {
         let command = msg.content.substr(1).split(" ")[0];
         let args = msg.content.trim().replace(/\s+/g, ' ').split(" ");
-        console.log(args);
+        console.log(msg.client.user.username+":"+args);
         switch (command) {
             case 'servidor':
                 if (args.length > 1) {

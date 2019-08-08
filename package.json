@@ -6,6 +6,7 @@
   "author": "AlexBO9",
   "dependencies": {
     "dgram": "^1.0.1",
-    "discord.js": "^11.5.1"
+    "discord.js": "^11.5.1",
+    "string-table": "^0.1.5"
   }
 }

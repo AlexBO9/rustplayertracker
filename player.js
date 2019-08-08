@@ -1,3 +1,4 @@
+
 class Player{
     constructor(_name,_duration,_score){
         this.name = _name;
@@ -6,7 +7,7 @@ class Player{
     }
 
     toString(){
-        return `Nombre: ${this.name} | TiempoEnServidor: ${this.segToHms(this.duration)}`;
+        return `Nombre: "${this.name}" | TiempoEnServidor: "${this.segToHms(this.duration)}"`;
     }
 
     segToHms(segs) {
