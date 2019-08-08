@@ -140,7 +140,9 @@ function saveQueryIntoJson(_query) {
 process.stdin.resume();//so the program will not close instantly
 
 function exitHandler() {
-    saveQueryIntoJson(query);
+    if (query != null){
+        saveQueryIntoJson(query);
+    }
     process.exit();
 }
 
